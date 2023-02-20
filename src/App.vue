@@ -1,27 +1,36 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-</template>
+<script setup lang="ts">
+import { ref, computed, watch, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { getDataFromLocalStorage, setDataToLocalStorage } from '@/modules/localStorage';
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-})
+import TheLayout from '@/components/TheLayout.vue';
+
+const isInitialOpening = ref(true);
+
+const store = useStore();
+const locationsNamesList = computed(() => store.getters.locationsNamesList);
+const addLocation = (payload : string) => store.dispatch('addLocation', payload);
+
+watch(locationsNamesList, () => {
+    isInitialOpening.value = false;
+    setDataToLocalStorage(locationsNamesList.value);
+});
+
+onMounted(() => {
+    const data : string[] | null = getDataFromLocalStorage();
+    if (data && data.length) {
+        isInitialOpening.value = false;
+        data.forEach((location : string) => {
+            addLocation(location);
+        });
+    } else {
+        isInitialOpening.value = true;
+    }
+});
+
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+    <TheLayout :isInitialOpening="isInitialOpening"/>
+</template>
