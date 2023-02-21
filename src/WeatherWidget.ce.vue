@@ -9,20 +9,21 @@ import TheLayout from '@/components/TheLayout/index.vue';
 const isInitialOpening = ref(true);
 
 const locationsNamesList = computed(() => store.getters.locationsNamesList);
-const addLocation = (payload : string) => store.dispatch('addLocation', payload);
+const addLocation = async(payload : string) => store.dispatch('addLocation', payload);
 
 watch(locationsNamesList, () => {
     isInitialOpening.value = false;
     setDataToLocalStorage(locationsNamesList.value);
 });
 
-onMounted(() => {
+onMounted(async() => {
     const data : string[] | null = getDataFromLocalStorage();
+
     if (data && data.length) {
         isInitialOpening.value = false;
-        data.forEach((location : string) => {
-            addLocation(location);
-        });
+        for (const location of data) {
+            await addLocation(location);
+        }
     } else {
         isInitialOpening.value = true;
     }
