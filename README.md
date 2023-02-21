@@ -1,24 +1,20 @@
-# weather-displayer
+# Weather Displayer Widget
+This is a small widget that can display weather in a location by your request with name of it. You can add multiple locations and then manage them: sort and delete. The locations will be automatically saved and then they will be loaded again as you open the page next time.
 
-## Project setup
-```
-npm install
-```
+The displayed data: temperature, wind speed, humidity, visibility and common description.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## How to use
+You can use it by adding on your site the next code:
 
-### Compiles and minifies for production
 ```
-npm run build
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Zhycho/Weather-Displayer-widget/dist/assets/app.js"></script>
 ```
 
-### Lints and fixes files
+Then you can place it wherever you want by adding in your code this:
+
 ```
-npm run lint
+<weather-widget />
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Details
+It based on [OpenWeather](https://openweathermap.org/) free public API. Used technologies: vue.js 3, typescript, web components, sass, ant design vue.
