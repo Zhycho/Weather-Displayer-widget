@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import store from '@/store';
 
 import { getDataFromLocalStorage, setDataToLocalStorage } from '@/modules/localStorage';
 
-import TheLayout from '@/components/TheLayout.vue';
+import TheLayout from '@/components/TheLayout/index.vue';
 
 const isInitialOpening = ref(true);
 
-const store = useStore();
 const locationsNamesList = computed(() => store.getters.locationsNamesList);
 const addLocation = (payload : string) => store.dispatch('addLocation', payload);
 
@@ -34,3 +33,14 @@ onMounted(() => {
 <template>
     <TheLayout :isInitialOpening="isInitialOpening"/>
 </template>
+
+<style lang="scss">
+@import 'ant-design-vue/dist/antd';
+
+@import '@/components/CardList/style.scss';
+@import '@/components/LocationAdder/style.scss';
+@import '@/components/LocationsManager/style.scss';
+@import '@/components/TheLayout/style.scss';
+@import '@/components/TheMenu/style.scss';
+@import '@/components/WeatherCard/style.scss';
+</style>

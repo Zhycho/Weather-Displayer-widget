@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import store from '@/store';
 
 import { Button as AButton } from 'ant-design-vue';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons-vue';
 
-import LocationAdder from '@/components/LocationAdder.vue';
-import LocationsManager from '@/components/LocationsManager.vue';
+import LocationAdder from '@/components/LocationAdder/index.vue';
+import LocationsManager from '@/components/LocationsManager/index.vue';
 
 const isMenuOpened = ref(false);
 
+const clearAlertMessage = () => store.dispatch('clearAlertMessage');
+
 function toggleIsMenuOpened() {
     isMenuOpened.value = !isMenuOpened.value;
+    clearAlertMessage();
 }
 </script>
 
@@ -30,33 +34,3 @@ function toggleIsMenuOpened() {
     </div>
 </div>
 </template>
-
-<style lang="scss" scoped>
-.menu {
-    background: #f0f2f5;
-    height: calc(100% - 4rem);
-    left: 0;
-    opacity: 0;
-    padding: 1.5rem;
-    position: absolute;
-    top: 4rem;
-    transition: visibility 0s linear .3s, opacity .3s;
-    visibility: hidden;
-    width: 100%;
-    z-index: -1;
-
-    &__row {
-
-        &:not(:last-of-type) {
-            margin-bottom: 1rem;
-        }
-    }
-
-    &.is-open {
-        opacity: 1;
-        transition: visibility 0s linear 0s, opacity .3s;
-        visibility: visible;
-        z-index: 1;
-    }
-}
-</style>

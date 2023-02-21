@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
-import { useStore } from 'vuex';
+import { defineProps, ref, computed } from 'vue';
+import store from '@/store';
 
-import { TypographyTitle, Input as AInput, Button as AButton } from 'ant-design-vue';
+import { TypographyTitle, Input as AInput, Button as AButton, Alert as AAlert } from 'ant-design-vue';
 
 const props = defineProps({
     title: {
@@ -11,8 +11,8 @@ const props = defineProps({
     }
 });
 
-const store = useStore();
 const addLocation = (payload : string) => store.dispatch('addLocation', payload);
+const clearAlertMessage = () => store.dispatch('clearAlertMessage');
 
 const locationToAdd = ref('');
 
@@ -22,6 +22,11 @@ function submitHandler(e: SubmitEvent) {
     locationToAdd.value = '';
 }
 
+const alertMessage = computed(() => store.state.alertMessage);
+
+function alertClosedHandler() {
+    clearAlertMessage();
+}
 </script>
 
 <template>
@@ -33,10 +38,13 @@ function submitHandler(e: SubmitEvent) {
     />
     <a-button type="primary" htmlType="submit">Add</a-button>
 </form>
+<a-alert
+  v-if="alertMessage.length"
+  class="alert"
+  type="warning"
+  show-icon
+  closable
+  :message="alertMessage"
+  :after-close="alertClosedHandler"
+/>
 </template>
-
-<style lang="scss" scoped>
-.form {
-    display: flex;
-}
-</style>

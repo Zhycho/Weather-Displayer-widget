@@ -1,8 +1,4 @@
-import { createApp } from 'vue';
-import App from '@/App.vue';
-import store from '@/store';
-import 'ant-design-vue/dist/antd.css';
+import { defineCustomElement } from 'vue';
+import WeatherWidget from '@/WeatherWidget.ce.vue';
 
-const app = createApp(App);
-app.use(store);
-app.mount('#app');
+customElements.define('weather-widget', defineCustomElement(WeatherWidget));

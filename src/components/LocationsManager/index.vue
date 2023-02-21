@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useStore } from 'vuex';
+import store from '@/store';
 
 import { LocationsToSort } from '@/models/interfaces';
 
@@ -10,7 +10,6 @@ import { MoreOutlined, DeleteFilled } from '@ant-design/icons-vue';
 const targetForDropIndex = ref<number | null>(null);
 const locationsNamesList = computed(() => store.getters.locationsNamesList);
 
-const store = useStore();
 const removeLocation = (payload : string) => store.dispatch('removeLocation', payload);
 const setLocationPosition = (payload : LocationsToSort) => store.dispatch('setLocationPosition', payload);
 
@@ -82,44 +81,3 @@ function onDragEnd() {
         </list>
     </template>
 </template>
-
-<style lang="scss" scoped>
-.title {
-    margin: 0;
-}
-
-.list {
-    background-color: white;
-}
-
-.list-item {
-    display: flex;
-    justify-content: flex-start;
-
-    &__title {
-        margin-left: .75rem;
-    }
-
-    &.is-target-for-drop {
-        position: relative;
-
-        &::after {
-            background-color: #1890ff;
-            bottom: 0;
-            content: "";
-            height: 2px;
-            left: 0;
-            position: absolute;
-            width: 100%;
-        }
-    }
-}
-
-.button-drag {
-    cursor: grab;
-}
-
-.button-delete {
-    margin-left: auto;
-}
-</style>

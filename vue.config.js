@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const path = require("path");
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require('@vue/cli-service');
 
 const assetsDir = "assets";
 
@@ -19,19 +19,5 @@ module.exports = defineConfig({
         maxChunks: 1
       })
     ]
-  },
-  chainWebpack: (config) => {
-    config.optimization.delete('splitChunks')
-
-    if (config.plugins.has("extract-css")) {
-      const extractCSSPlugin = config.plugin("extract-css");
-      extractCSSPlugin &&
-      extractCSSPlugin.tap(() => [
-        {
-          filename: assetsDir + "/[name].css",
-          chunkFilename: assetsDir + "/[name].css"
-        }
-      ]);
-    }
   }
 })

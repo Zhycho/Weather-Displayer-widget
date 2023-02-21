@@ -30,18 +30,3 @@ const imagePath = getWeatherImage(props.geoData.icon);
         </div>
     </card>
 </template>
-
-<style lang="scss" scoped>
-.card-main {
-    align-items: center;
-    display: flex;
-    gap: .75rem;
-}
-
-.card-details {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    margin-top: .5rem;
-}
-</style>

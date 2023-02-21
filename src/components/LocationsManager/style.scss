@@ -1,0 +1,38 @@
+.title {
+    margin: 0;
+}
+
+.list {
+    background-color: white;
+}
+
+.list-item {
+    display: flex;
+    justify-content: flex-start;
+
+    &__title {
+        margin-left: .75rem;
+    }
+
+    &.is-target-for-drop {
+        position: relative;
+
+        &::after {
+            background-color: #1890ff;
+            bottom: 0;
+            content: "";
+            height: 2px;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+    }
+}
+
+.button-drag {
+    cursor: grab;
+}
+
+.button-delete {
+    margin-left: auto;
+}

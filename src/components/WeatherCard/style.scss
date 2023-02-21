@@ -1,0 +1,12 @@
+.card-main {
+    align-items: center;
+    display: flex;
+    gap: .75rem;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-top: .5rem;
+}

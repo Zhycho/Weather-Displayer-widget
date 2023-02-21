@@ -18,5 +18,13 @@ module.exports = {
     'semi': ['error', 'always'],
     'comma-dangle': 'off',
     'space-before-function-paren': ['error', 'never']
-  }
+  },
+  overrides: [
+    {
+      files: ['src/components/**/index.vue'],
+      rules: {
+        'vue/multi-word-component-names': 0,
+      },
+    },
+  ],
 }
